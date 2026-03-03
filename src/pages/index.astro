@@ -3,16 +3,18 @@ import Layout from '@/layouts/layout.astro'
 import Header from '@/components/header.astro'
 import Hero from '@/components/hero.astro'
 import QuickAccess from '@/components/quick-access.astro'
+import HomeStores from '@/components/home-stores.astro'
 import Footer from '@/components/footer.astro'
 ---
 
 <Layout title="Dutra Farma - Farmácia em Caraguatatuba e São Sebastião">
-  <Header />
-  
-  <main>
-    <Hero />
-    <QuickAccess />
-  </main>
+	<Header />
 
-  <Footer />
+	<main>
+		<Hero />
+		<HomeStores />
+		<QuickAccess />
+	</main>
+
+	<Footer />
 </Layout>

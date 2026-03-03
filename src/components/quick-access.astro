@@ -3,69 +3,109 @@ import IconFileText from '~icons/ph/file-text-duotone'
 import IconStorefront from '~icons/ph/storefront-duotone'
 import IconUsers from '~icons/ph/users-three-duotone'
 import IconQuestion from '~icons/ph/question-duotone'
+import SectionTitle from './section-title.astro'
 ---
 
 <section id="servicos" class="py-16 bg-white relative">
-  <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-    
-    <div class="text-center md:text-left mb-10">
-      <h2 class="text-3xl font-extrabold tracking-tight text-slate-900 sm:text-4xl">Saúde e praticidade</h2>
-      <p class="mt-4 text-lg text-slate-600 max-w-2xl">O que você precisar, na hora que precisar. Nossos principais serviços pensados para facilitar sua vida e cuidar do seu bem-estar.</p>
-    </div>
+	<div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+		<SectionTitle
+			title="Saúde e"
+			highlight="Praticidade"
+			subtitle="O que você precisar, na hora que precisar. Nossos principais serviços pensados para facilitar sua vida e cuidar do seu bem-estar."
+		/>
 
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-      <!-- Card 1 -->
-      <a href="/lojas" class="group relative flex flex-col justify-between rounded-3xl bg-slate-50 p-8 hover:bg-red-50 hover:shadow-lg transition-all border border-slate-100 ring-1 ring-slate-100 hover:ring-red-200">
-        <div>
-          <div class="flex h-12 w-12 items-center justify-center rounded-2xl bg-white shadow-sm ring-1 ring-slate-200 text-red-600 group-hover:scale-110 transition-transform">
-            <IconFileText class="w-6 h-6" />
-          </div>
-          <h3 class="mt-6 text-xl font-bold text-slate-900 group-hover:text-red-700 transition-colors">Envie sua Receita</h3>
-          <p class="mt-2 text-sm text-slate-600 leading-relaxed">
-            Mande uma foto da sua receita médica pelo WhatsApp e nós separamos tudo.
-          </p>
-        </div>
-      </a>
+		<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+			<!-- Card 1 -->
+			<a
+				href="/lojas"
+				class="group relative flex flex-col justify-between rounded-3xl bg-slate-50 p-8 hover:bg-red-50 hover:shadow-lg transition-all border border-slate-100 ring-1 ring-slate-100 hover:ring-red-200"
+			>
+				<div>
+					<div
+						class="flex h-12 w-12 items-center justify-center rounded-2xl bg-white shadow-sm ring-1 ring-slate-200 text-red-600 group-hover:scale-110 transition-transform"
+					>
+						<IconFileText class="w-6 h-6" />
+					</div>
+					<h3
+						class="mt-6 text-xl font-bold text-slate-900 group-hover:text-red-700 transition-colors"
+					>
+						Envie sua Receita
+					</h3>
+					<p class="mt-2 text-sm text-slate-600 leading-relaxed">
+						Mande uma foto da sua receita médica pelo WhatsApp e nós
+						separamos tudo.
+					</p>
+				</div>
+			</a>
 
-      <!-- Card 2 -->
-      <a href="/lojas" class="group relative flex flex-col justify-between rounded-3xl bg-slate-50 p-8 hover:bg-red-50 hover:shadow-lg transition-all border border-slate-100 ring-1 ring-slate-100 hover:ring-red-200">
-        <div>
-          <div class="flex h-12 w-12 items-center justify-center rounded-2xl bg-white shadow-sm ring-1 ring-slate-200 text-red-600 group-hover:scale-110 transition-transform">
-            <IconStorefront class="w-6 h-6" />
-          </div>
-          <h3 class="mt-6 text-xl font-bold text-slate-900 group-hover:text-red-700 transition-colors">Nossas Lojas</h3>
-          <p class="mt-2 text-sm text-slate-600 leading-relaxed">
-            Descubra qual loja física Dutra Farma está mais perto de você no Litoral.
-          </p>
-        </div>
-      </a>
+			<!-- Card 2 -->
+			<a
+				href="/lojas"
+				class="group relative flex flex-col justify-between rounded-3xl bg-slate-50 p-8 hover:bg-red-50 hover:shadow-lg transition-all border border-slate-100 ring-1 ring-slate-100 hover:ring-red-200"
+			>
+				<div>
+					<div
+						class="flex h-12 w-12 items-center justify-center rounded-2xl bg-white shadow-sm ring-1 ring-slate-200 text-red-600 group-hover:scale-110 transition-transform"
+					>
+						<IconStorefront class="w-6 h-6" />
+					</div>
+					<h3
+						class="mt-6 text-xl font-bold text-slate-900 group-hover:text-red-700 transition-colors"
+					>
+						Nossas Lojas
+					</h3>
+					<p class="mt-2 text-sm text-slate-600 leading-relaxed">
+						Descubra qual loja física Dutra Farma está mais perto de
+						você no Litoral.
+					</p>
+				</div>
+			</a>
 
-      <!-- Card 3 -->
-      <a href="/lojas" class="group relative flex flex-col justify-between rounded-3xl bg-slate-50 p-8 hover:bg-red-50 hover:shadow-lg transition-all border border-slate-100 ring-1 ring-slate-100 hover:ring-red-200">
-        <div>
-          <div class="flex h-12 w-12 items-center justify-center rounded-2xl bg-white shadow-sm ring-1 ring-slate-200 text-red-600 group-hover:scale-110 transition-transform">
-            <IconUsers class="w-6 h-6" />
-          </div>
-          <h3 class="mt-6 text-xl font-bold text-slate-900 group-hover:text-red-700 transition-colors">Trabalhe Conosco</h3>
-          <p class="mt-2 text-sm text-slate-600 leading-relaxed">
-            Faça parte da nossa equipe e ajude a cuidar das pessoas em nossa região.
-          </p>
-        </div>
-      </a>
+			<!-- Card 3 -->
+			<a
+				href="/lojas"
+				class="group relative flex flex-col justify-between rounded-3xl bg-slate-50 p-8 hover:bg-red-50 hover:shadow-lg transition-all border border-slate-100 ring-1 ring-slate-100 hover:ring-red-200"
+			>
+				<div>
+					<div
+						class="flex h-12 w-12 items-center justify-center rounded-2xl bg-white shadow-sm ring-1 ring-slate-200 text-red-600 group-hover:scale-110 transition-transform"
+					>
+						<IconUsers class="w-6 h-6" />
+					</div>
+					<h3
+						class="mt-6 text-xl font-bold text-slate-900 group-hover:text-red-700 transition-colors"
+					>
+						Trabalhe Conosco
+					</h3>
+					<p class="mt-2 text-sm text-slate-600 leading-relaxed">
+						Faça parte da nossa equipe e ajude a cuidar das pessoas
+						em nossa região.
+					</p>
+				</div>
+			</a>
 
-      <!-- Card 4 -->
-      <a href="/lojas" class="group relative flex flex-col justify-between rounded-3xl bg-slate-50 p-8 hover:bg-red-50 hover:shadow-lg transition-all border border-slate-100 ring-1 ring-slate-100 hover:ring-red-200">
-        <div>
-          <div class="flex h-12 w-12 items-center justify-center rounded-2xl bg-white shadow-sm ring-1 ring-slate-200 text-red-600 group-hover:scale-110 transition-transform">
-            <IconQuestion class="w-6 h-6" />
-          </div>
-          <h3 class="mt-6 text-xl font-bold text-slate-900 group-hover:text-red-700 transition-colors">Dúvidas Frequentes</h3>
-          <p class="mt-2 text-sm text-slate-600 leading-relaxed">
-            Ficou com alguma dúvida sobre entregas ou formas de pagamento?
-          </p>
-        </div>
-      </a>
-    </div>
-
-  </div>
+			<!-- Card 4 -->
+			<a
+				href="/lojas"
+				class="group relative flex flex-col justify-between rounded-3xl bg-slate-50 p-8 hover:bg-red-50 hover:shadow-lg transition-all border border-slate-100 ring-1 ring-slate-100 hover:ring-red-200"
+			>
+				<div>
+					<div
+						class="flex h-12 w-12 items-center justify-center rounded-2xl bg-white shadow-sm ring-1 ring-slate-200 text-red-600 group-hover:scale-110 transition-transform"
+					>
+						<IconQuestion class="w-6 h-6" />
+					</div>
+					<h3
+						class="mt-6 text-xl font-bold text-slate-900 group-hover:text-red-700 transition-colors"
+					>
+						Dúvidas Frequentes
+					</h3>
+					<p class="mt-2 text-sm text-slate-600 leading-relaxed">
+						Ficou com alguma dúvida sobre entregas ou formas de
+						pagamento?
+					</p>
+				</div>
+			</a>
+		</div>
+	</div>
 </section>
