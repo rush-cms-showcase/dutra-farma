@@ -19,6 +19,8 @@
     "@iconify-json/mdi": "^1.2.3",
     "@iconify-json/ph": "^1.2.2",
     "@types/leaflet": "^1.9.21",
+    "prettier": "^3.8.1",
+    "prettier-plugin-astro": "^0.14.1",
     "unplugin-icons": "^23.0.1"
   }
 }

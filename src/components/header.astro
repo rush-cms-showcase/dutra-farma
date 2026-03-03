@@ -2,28 +2,53 @@
 import IconMenu from '~icons/ph/list-bold'
 ---
 
-<header class="sticky top-0 z-50 w-full bg-white/80 backdrop-blur-md border-b border-slate-200">
-  <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-    <div class="flex h-20 items-center justify-between">
-      <div class="flex items-center gap-4">
-        <a href="/" class="flex items-center gap-2" aria-label="Ir para a página inicial">
-          <img src="/dutra-farma.png" alt="Dutra Farma Logo" class="h-10 w-auto md:h-12" />
-        </a>
-      </div>
-      <div class="hidden md:flex items-center gap-8">
-        <nav class="flex items-center gap-8">
-          <a href="/" class="text-sm font-semibold text-slate-700 hover:text-red-600 transition-colors">Home</a>
-          <a href="/lojas" class="text-sm font-semibold text-slate-700 hover:text-red-600 transition-colors">Lojas</a>
-        </nav>
-        <a href="/lojas" class="inline-flex items-center justify-center gap-2 rounded-full bg-red-600 px-6 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-red-500 transition-all hover:scale-105 active:scale-95">
-          Fale Conosco
-        </a>
-      </div>
-      <div class="md:hidden flex items-center">
-        <button type="button" class="text-slate-600 hover:text-red-600 p-2" aria-label="Abrir menu">
-          <IconMenu class="w-6 h-6" />
-        </button>
-      </div>
-    </div>
-  </div>
+<header
+	class="sticky top-0 z-50 w-full bg-white/80 backdrop-blur-md border-b border-slate-200"
+>
+	<div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+		<div class="flex h-20 items-center justify-between">
+			<div class="flex items-center gap-4">
+				<a
+					href="/"
+					class="flex items-center gap-2"
+					aria-label="Ir para a página inicial"
+				>
+					<img
+						src="/dutra-farma.png"
+						alt="Dutra Farma Logo"
+						class="h-10 w-auto md:h-12"
+					/>
+				</a>
+			</div>
+			<div class="hidden md:flex items-center gap-8">
+				<nav class="flex items-center gap-8">
+					<a
+						href="/"
+						class="text-sm font-semibold text-slate-700 hover:text-red-600 transition-colors"
+						>Home</a
+					>
+					<a
+						href="/lojas"
+						class="text-sm font-semibold text-slate-700 hover:text-red-600 transition-colors"
+						>Lojas</a
+					>
+				</nav>
+				<a
+					href="/lojas"
+					class="inline-flex items-center justify-center gap-2 rounded-full bg-red-600 px-6 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-red-500 transition-all hover:scale-105 active:scale-95"
+				>
+					Fale Conosco
+				</a>
+			</div>
+			<div class="md:hidden flex items-center">
+				<button
+					type="button"
+					class="text-slate-600 hover:text-red-600 p-2"
+					aria-label="Abrir menu"
+				>
+					<IconMenu class="w-6 h-6" />
+				</button>
+			</div>
+		</div>
+	</div>
 </header>
