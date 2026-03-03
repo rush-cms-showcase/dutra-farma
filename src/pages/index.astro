@@ -5,9 +5,28 @@ import Hero from '@/components/hero.astro'
 import QuickAccess from '@/components/quick-access.astro'
 import HomeStores from '@/components/home-stores.astro'
 import Footer from '@/components/footer.astro'
+import { units } from '@/data/units'
+
+const schema = {
+	'@context': 'https://schema.org',
+	'@type': 'MedicalOrganization',
+	name: 'Dutra Farma',
+	url: new URL(Astro.url.pathname, Astro.site || Astro.url).toString(),
+	logo: new URL('/favicon.png', Astro.site || Astro.url).toString(),
+	contactPoint: units.map((u) => ({
+		'@type': 'ContactPoint',
+		telephone: u.phone,
+		contactType: 'customer service',
+		areaServed: u.city,
+		availableLanguage: 'Portuguese',
+	})),
+}
 ---
 
-<Layout title="Dutra Farma - Farmácia em Caraguatatuba e São Sebastião">
+<Layout
+	title="Dutra Farma - Farmácia em Caraguatatuba e São Sebastião"
+	schema={schema}
+>
 	<Header />
 
 	<main>

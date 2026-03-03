@@ -17,11 +17,33 @@ export function getStaticPaths() {
 }
 
 const { unit } = Astro.props
+
+const schema = {
+	'@context': 'https://schema.org',
+	'@type': 'Pharmacy',
+	name: `${unit.name} - Dutra Farma`,
+	image: new URL('/banner.png', Astro.site || Astro.url).toString(),
+	address: {
+		'@type': 'PostalAddress',
+		streetAddress: unit.address,
+		addressLocality: unit.city,
+		addressRegion: unit.state,
+		addressCountry: 'BR',
+	},
+	geo: {
+		'@type': 'GeoCoordinates',
+		latitude: unit.coordinates[0],
+		longitude: unit.coordinates[1],
+	},
+	url: new URL(Astro.url.pathname, Astro.site || Astro.url).toString(),
+	telephone: unit.phone,
+}
 ---
 
 <Layout
 	title={`${unit.name} | Dutra Farma`}
 	description={`Farmácia ${unit.name} da Dutra Farma localizada em ${unit.city}. Endereço: ${unit.address}. Peça também pelo WhatsApp.`}
+	schema={schema}
 >
 	<Header />
 

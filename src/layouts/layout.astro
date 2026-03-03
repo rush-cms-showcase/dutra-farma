@@ -4,12 +4,18 @@ import '@/styles/app.css'
 interface Props {
 	title: string
 	description?: string
+	image?: string
+	schema?: object
 }
 
 const {
 	title,
 	description = 'A farmácia de confiança do Litoral Norte. Cuidando da sua saúde em Caraguatatuba e São Sebastião.',
+	image = '/banner.png',
+	schema,
 } = Astro.props
+
+const canonicalURL = new URL(Astro.url.pathname, Astro.site || Astro.url)
 ---
 
 <!doctype html>
@@ -17,10 +23,62 @@ const {
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="generator" content={Astro.generator} />
-		<meta name="description" content={description} />
+		<!-- Favicon -->
+		<link rel="icon" type="image/png" href="/favicon.png" />
+
+		<!-- SEO Base -->
 		<title>{title}</title>
+		<meta name="description" content={description} />
+		<meta name="generator" content={Astro.generator} />
+		<link rel="canonical" href={canonicalURL} />
+
+		<!-- Open Graph / Facebook -->
+		<meta property="og:type" content="website" />
+		<meta property="og:url" content={canonicalURL} />
+		<meta property="og:title" content={title} />
+		<meta property="og:description" content={description} />
+		<meta property="og:image" content={new URL(image, Astro.url)} />
+
+		<!-- Twitter -->
+		<meta property="twitter:card" content="summary_large_image" />
+		<meta property="twitter:url" content={canonicalURL} />
+		<meta property="twitter:title" content={title} />
+		<meta property="twitter:description" content={description} />
+		<meta property="twitter:image" content={new URL(image, Astro.url)} />
+
+		{/* JSON-LD Schema */}
+		{
+			schema && (
+				<script
+					type="application/ld+json"
+					set:html={JSON.stringify(schema)}
+				/>
+			)
+		}
+
+		{/* Google Analytics */}
+		{
+			import.meta.env.PUBLIC_GA_TAG && (
+				<>
+					<script
+						is:inline
+						async
+						src={`https://www.googletagmanager.com/gtag/js?id=${import.meta.env.PUBLIC_GA_TAG}`}
+					/>
+					<script
+						is:inline
+						define:vars={{
+							trackingId: import.meta.env.PUBLIC_GA_TAG,
+						}}
+					>
+						window.dataLayer = window.dataLayer || [] function
+						gtag() {dataLayer.push(arguments)}
+						gtag('js', new Date()) gtag('config', trackingId)
+					</script>
+				</>
+			)
+		}
+
 		<link rel="preconnect" href="https://fonts.googleapis.com" />
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 		<link
