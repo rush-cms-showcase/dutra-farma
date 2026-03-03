@@ -1,0 +1,70 @@
+---
+import { units } from '@/data/units'
+import IconMapPin from '~icons/ph/map-pin-duotone'
+import IconPhone from '~icons/ph/phone-duotone'
+import IconWhatsapp from '~icons/mdi/whatsapp'
+import SectionTitle from './section-title.astro'
+---
+
+<section
+	id="lojas"
+	class="py-16 bg-slate-50 relative border-t border-slate-100"
+>
+	<div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+		<SectionTitle
+			title="Conheça nossas"
+			highlight="Lojas"
+			subtitle="Encontre a Dutra Farma mais próxima de você. São 3 unidades estrategicamente localizadas para melhor atendê-lo."
+		/>
+
+		<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+			{
+				units.map((unit) => (
+					<div class="group flex flex-col bg-white rounded-3xl p-6 shadow-sm hover:shadow-xl ring-1 ring-slate-200 hover:ring-red-200 transition-all hover:-translate-y-1">
+						<h3 class="text-xl font-bold text-slate-900 group-hover:text-red-600 transition-colors mb-1">
+							{unit.name}
+						</h3>
+						<p class="text-slate-500 text-sm font-medium mb-5">
+							{unit.city}, {unit.state}
+						</p>
+
+						<div class="space-y-4 mb-6 grow">
+							<div class="flex items-start gap-3 text-sm">
+								<IconMapPin class="w-5 h-5 text-red-500 shrink-0 mt-0.5 group-hover:scale-110 transition-transform" />
+								<span class="text-slate-700 leading-relaxed">
+									{unit.address} - {unit.neighborhood}
+								</span>
+							</div>
+							<div class="flex items-center gap-3 text-sm">
+								<IconPhone class="w-5 h-5 text-slate-400 shrink-0" />
+								<span class="text-slate-700 font-medium">
+									{unit.phone}
+								</span>
+							</div>
+						</div>
+
+						<div class="pt-5 border-t border-slate-100 flex items-center justify-between gap-2">
+							<a
+								href={`/lojas/${unit.id}`}
+								class="text-sm font-semibold text-slate-600 hover:text-red-600 transition-colors"
+							>
+								Ver detalhes
+							</a>
+							{unit.whatsapp && (
+								<a
+									href={`https://wa.me/${unit.whatsapp}`}
+									target="_blank"
+									rel="noopener noreferrer"
+									class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-[#25D366] text-white text-xs font-bold hover:bg-[#20bd5a] transition-colors shadow-sm shadow-[#25D366]/20"
+								>
+									<IconWhatsapp class="w-4 h-4" />
+									WhatsApp
+								</a>
+							)}
+						</div>
+					</div>
+				))
+			}
+		</div>
+	</div>
+</section>

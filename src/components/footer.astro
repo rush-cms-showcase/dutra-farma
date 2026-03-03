@@ -4,70 +4,101 @@ import IconInstagram from '~icons/mdi/instagram'
 import IconMapPin from '~icons/ph/map-pin-duotone'
 import { units } from '@/data/units'
 
-const utmTags = 'utm_source=dutra-farma&utm_medium=website&utm_campaign=client_referral&utm_content=footer'
+const utmTags =
+	'utm_source=dutra-farma&utm_medium=website&utm_campaign=client_referral&utm_content=footer'
 ---
 
 <footer class="bg-slate-900 text-white mt-10">
-  <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-16">
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
-      
-      <!-- Brand & About -->
-      <div class="col-span-1 lg:col-span-1">
-        <h2 class="text-2xl font-black mb-6 text-white tracking-tight">Dutra Farma</h2>
-        <p class="text-slate-400 text-sm leading-relaxed mb-6">
-          A farmácia de confiança do Litoral Norte. Sua saúde e bem-estar sempre em primeiro lugar.
-        </p>
-        <div class="flex items-center gap-4">
-          <a href="/lojas" class="text-slate-400 hover:text-white transition-colors bg-slate-800 p-2 rounded-full hover:bg-red-600">
-            <span class="sr-only">Lojas e Contato</span>
-            <IconWhatsapp class="w-5 h-5" />
-          </a>
-          <a href="#" class="text-slate-400 hover:text-white transition-colors bg-slate-800 p-2 rounded-full hover:bg-red-600">
-            <span class="sr-only">Instagram</span>
-            <IconInstagram class="w-5 h-5" />
-          </a>
-        </div>
-      </div>
+	<div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-16">
+		<div class="w-full flex flex-col lg:flex-row items-center justify-between gap-4 lg:gap-12">
+			<h2 class="text-2xl font-black mb-6 text-white tracking-tight">
+				Dutra Farma
+			</h2>
+			<p class="text-slate-400 text-sm leading-relaxed mb-6 bg-white/5 p-8 rounded-lg">
+				A farmácia de confiança do Litoral Norte. Sua saúde e bem-estar
+				sempre em primeiro lugar.
+			</p>
+			<div class="flex items-center gap-4">
+				<a
+					href="/lojas"
+					class="text-slate-400 hover:text-white transition-colors bg-slate-800 p-2 rounded-full hover:bg-red-600"
+				>
+					<span class="sr-only">Lojas e Contato</span>
+					<IconWhatsapp class="w-5 h-5" />
+				</a>
+				<a
+					href="#"
+					class="text-slate-400 hover:text-white transition-colors bg-slate-800 p-2 rounded-full hover:bg-red-600"
+				>
+					<span class="sr-only">Instagram</span>
+					<IconInstagram class="w-5 h-5" />
+				</a>
+			</div>
+		</div>
+		<div class="w-full h-px bg-white/20 my-12 lg:my-6"></div>
+		<div class="w-full pt-2 lg:pt-4">
+			<h3
+				class="text-sm font-semibold tracking-wider uppercase mb-2 text-slate-300 hidden lg:block"
+			>Lojas</h3>
+			<div class="flex flex-col lg:grid lg:grid-cols-3 items-center justify-center gap-6">
+				{
+					units.map((unit) => (
+						<div class="flex items-start gap-3">
+							<IconMapPin class="w-5 h-5 text-red-500 shrink-0 mt-0.5" />
+							<div>
+								<h4 class="text-white text-sm font-semibold mb-1">
+									{unit.name}
+								</h4>
+								<p class="text-slate-400 text-xs leading-tight mb-1">
+									{unit.address}
+									<br />
+									{unit.neighborhood}, {unit.city}
+								</p>
+								<div class="flex items-center gap-3 mt-1">
+									<div class="text-red-400 text-xs font-semibold">
+										{unit.phone}
+									</div>
+									{unit.whatsapp && (
+										<a
+											href={`https://wa.me/${unit.whatsapp}`}
+											target="_blank"
+											rel="noopener noreferrer"
+											class="inline-flex items-center justify-center gap-1 rounded-full bg-[#25D366]/10 px-2 py-0.5 text-[10px] font-bold text-[#25D366] hover:bg-[#25D366]/20 transition-colors"
+										>
+											<IconWhatsapp class="w-3 h-3" />
+											WhatsApp
+										</a>
+									)}
+								</div>
+							</div>
+						</div>
+					))
+				}
+			</div>
+		</div>
+	</div>
 
-      <!-- Quick Links -->
-      <div>
-        <h3 class="text-sm font-semibold tracking-wider uppercase mb-6 text-slate-300">Acesso Rápido</h3>
-        <ul class="space-y-4">
-          <li><a href="/" class="text-slate-400 hover:text-white text-sm transition-colors">Home</a></li>
-          <li><a href="/lojas" class="text-slate-400 hover:text-white text-sm transition-colors">Lojas</a></li>
-          <li><a href="/lojas" class="text-slate-400 hover:text-white text-sm transition-colors">Fale Conosco</a></li>
-        </ul>
-      </div>
-
-      <!-- Contact Info -->
-      <div class="lg:col-span-2">
-        <h3 class="text-sm font-semibold tracking-wider uppercase mb-6 text-slate-300">Nossas Unidades</h3>
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
-          {units.map((unit) => (
-            <div class="flex items-start gap-3">
-              <IconMapPin class="w-5 h-5 text-red-500 flex-shrink-0 mt-0.5" />
-              <div>
-                <h4 class="text-white text-sm font-semibold mb-1">{unit.name}</h4>
-                <p class="text-slate-400 text-xs leading-tight mb-1">{unit.address}<br/>{unit.neighborhood}, {unit.city}</p>
-                <div class="text-red-400 text-xs font-semibold">{unit.phone}</div>
-              </div>
-            </div>
-          ))}
-        </div>
-      </div>
-
-    </div>
-    
-    <div class="mt-16 pt-8 border-t border-slate-800 flex flex-col md:flex-row items-center justify-between gap-4">
-      <p class="text-slate-500 text-xs">
-        &copy; {new Date().getFullYear()} Dutra Farma. Todos os direitos reservados.
-      </p>
-      <p class="flex items-center justify-end flex-row gap-2 text-xs sm:text-sm text-gray-500">
-          <span>Feito por</span>
-          <a href={`https://rafhael.pro?${utmTags}`} target="_blank" rel="noopener noreferrer">
-              <img src="/rafhael-marsigli.svg" alt="Rafhael Marsigli" class="w-8 h-8 rounded-md shadow-md" />
-          </a>
-      </p>
-    </div>
-  </div>
+	<div
+		class="mt-16 p-8 border-t border-slate-800 flex flex-col md:flex-row items-center justify-between gap-4"
+	>
+		<p class="text-slate-500 text-xs">
+			&copy; {new Date().getFullYear()} Dutra Farma. Todos os direitos reservados.
+		</p>
+		<p
+			class="flex items-center justify-end flex-row gap-2 text-xs sm:text-sm text-gray-500"
+		>
+			<span>Feito por</span>
+			<a
+				href={`https://rafhael.pro?${utmTags}`}
+				target="_blank"
+				rel="noopener noreferrer"
+			>
+				<img
+					src="/rafhael-marsigli.svg"
+					alt="Rafhael Marsigli"
+					class="w-8 h-8 rounded-md shadow-md"
+				/>
+			</a>
+		</p>
+	</div>
 </footer>

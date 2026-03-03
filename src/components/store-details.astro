@@ -1,0 +1,130 @@
+---
+import IconMapPin from '~icons/ph/map-pin-duotone'
+import IconPhone from '~icons/ph/phone-duotone'
+import IconMobile from '~icons/ph/device-mobile-duotone'
+import IconWhatsapp from '~icons/mdi/whatsapp'
+
+interface Props {
+	unit: {
+		id: string
+		name: string
+		address: string
+		neighborhood: string
+		city: string
+		state: string
+		phone: string
+		whatsapp?: string
+		coordinates: [number, number]
+		maps_url?: string
+	}
+}
+
+const { unit } = Astro.props
+---
+
+<div class="flex flex-col gap-8 w-full">
+	<!-- Top Grid: Address (Left) / Contact (Right) -->
+	<div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+		<!-- Address -->
+		<div>
+			<h3
+				class="text-xs font-bold uppercase tracking-widest text-slate-400 mb-4"
+			>
+				Endereço
+			</h3>
+			<div class="flex items-start gap-4">
+				<IconMapPin class="w-6 h-6 text-red-500 shrink-0 mt-0.5" />
+				<div>
+					<span class="text-slate-800 font-medium block">
+						{unit.address}
+					</span>
+					<span class="text-slate-500 block mt-1">
+						{unit.neighborhood} - {unit.city}, {unit.state}
+					</span>
+					<a
+						href={unit.maps_url ||
+							`https://www.google.com/maps/dir/?api=1&destination=${unit.coordinates[0]},${unit.coordinates[1]}`}
+						target="_blank"
+						rel="noopener noreferrer"
+						class="inline-block mt-3 text-sm font-bold text-red-600 hover:text-red-700 underline decoration-red-300 underline-offset-4"
+					>
+						Como chegar no mapa
+					</a>
+				</div>
+			</div>
+		</div>
+
+		<!-- Contact -->
+		<div>
+			<h3
+				class="text-xs font-bold uppercase tracking-widest text-slate-400 mb-4"
+			>
+				Contato
+			</h3>
+			<div class="space-y-4">
+				{
+					unit.phone && (
+						<a href={`tel:${unit.phone.replace(/\D/g, '')}`} class="flex items-center gap-4 text-slate-700 hover:text-red-600 transition-colors">
+							<IconPhone class="w-5 h-5 text-slate-400" />
+							<span class="font-medium text-lg tracking-wide">
+								{unit.phone}
+							</span>
+						</a>
+					)
+				}
+				{
+					unit.whatsapp && (
+						<a href={`tel:${unit.whatsapp}`} class="flex items-center gap-4 text-slate-700 hover:text-red-600 transition-colors">
+							<IconMobile class="w-5 h-5 text-slate-400" />
+							<span class="font-medium text-lg tracking-wide">
+								{unit.whatsapp
+									.replace(/^55/, '')
+									.replace(
+										/(\d{2})(\d{4,5})(\d{4})/,
+										'($1) $2-$3',
+									)}
+							</span>
+						</a>
+					)
+				}
+			</div>
+		</div>
+	</div>
+
+	<!-- CTA Section Grid -->
+	<div
+		class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center bg-slate-900 rounded-3xl p-8 sm:p-10 shadow-lg text-white"
+	>
+		<div>
+			<h3 class="text-2xl font-extrabold tracking-tight mb-3">
+				Peça sem sair de casa
+			</h3>
+			<p class="text-slate-400 text-sm leading-relaxed max-w-sm">
+				Evite filas! Envie sua receita ou compre seus medicamentos
+				diretamente pelo WhatsApp da nossa farmácia.
+			</p>
+		</div>
+		<div class="flex md:justify-end">
+			{
+				unit.whatsapp ? (
+					<a
+						href={`https://wa.me/${unit.whatsapp}`}
+						target="_blank"
+						rel="noopener noreferrer"
+						class="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 rounded-2xl bg-[#25D366] px-8 py-4 text-base font-bold text-white shadow-xl shadow-[#25D366]/20 hover:bg-[#20bd5a] hover:scale-[1.02] transition-all active:scale-95"
+					>
+						<IconWhatsapp class="w-6 h-6" />
+						Chamar no WhatsApp
+					</a>
+				) : (
+					<a
+						href={`tel:${unit.phone}`}
+						class="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 rounded-2xl bg-white/10 px-8 py-4 text-base font-bold text-white hover:bg-white/20 transition-all"
+					>
+						Ligar para a loja
+					</a>
+				)
+			}
+		</div>
+	</div>
+</div>
