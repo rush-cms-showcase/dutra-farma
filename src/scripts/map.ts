@@ -1,39 +1,21 @@
 import type { Unit } from '../types'
 import { units } from '../data/units'
 
-// We will load Leaflet lazily to boost PageSpeed
-let leafletPromise: Promise<any> | null = null
+// We will load Leaflet lazily
+let isLeafletLoaded = false
 
-const loadLeafletDynamically = (): Promise<any> => {
-	if (leafletPromise) return leafletPromise
+const loadLeafletDynamically = async () => {
+	// @ts-ignore
+	if (isLeafletLoaded) return window.L
 
-	leafletPromise = new Promise((resolve, reject) => {
-		// @ts-ignore
-		if (window.L) {
-			// @ts-ignore
-			return resolve(window.L)
-		}
+	await import('leaflet/dist/leaflet.css')
+	const leafletModule = await import('leaflet')
+	// @ts-ignore
+	window.L = leafletModule.default || leafletModule
+	isLeafletLoaded = true
 
-		// Load CSS
-		const link = document.createElement('link')
-		link.rel = 'stylesheet'
-		link.href = '/vendor/leaflet/leaflet.css'
-		document.head.appendChild(link)
-
-		// Load JS
-		const script = document.createElement('script')
-		script.src = '/vendor/leaflet/leaflet.js'
-		script.onload = () => {
-			// @ts-ignore
-			resolve(window.L)
-		}
-		script.onerror = () => {
-			reject(new Error('Failed to load Leaflet JS'))
-		}
-		document.head.appendChild(script)
-	})
-
-	return leafletPromise
+	// @ts-ignore
+	return window.L
 }
 
 export const initMap = async () => {
