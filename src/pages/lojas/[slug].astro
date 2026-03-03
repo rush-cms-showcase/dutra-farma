@@ -3,172 +3,74 @@ import Layout from '@/layouts/layout.astro'
 import Header from '@/components/header.astro'
 import Footer from '@/components/footer.astro'
 import { units } from '@/data/units'
-import IconMapPin from '~icons/ph/map-pin-duotone'
-import IconPhone from '~icons/ph/phone-duotone'
-import IconWhatsapp from '~icons/mdi/whatsapp'
-import IconShieldCheck from '~icons/ph/shield-check-duotone'
 import IconArrowLeft from '~icons/ph/arrow-left-bold'
+import IconWhatsapp from '~icons/mdi/whatsapp'
+import IconPhone from '~icons/ph/phone-duotone'
+import StoreDetails from '@/components/store-details.astro'
+import StoreMap from '@/components/store-map.astro'
 
 export function getStaticPaths() {
-  return units.map((unit) => ({
-    params: { slug: unit.id },
-    props: { unit },
-  }))
+	return units.map((unit) => ({
+		params: { slug: unit.id },
+		props: { unit },
+	}))
 }
 
 const { unit } = Astro.props
 ---
 
-<Layout title={`${unit.name} | Dutra Farma`} description={`Farmácia ${unit.name} da Dutra Farma localizada em ${unit.city}. Endereço: ${unit.address}. Peça também pelo WhatsApp.`}>
-  <Header />
+<Layout
+	title={`${unit.name} | Dutra Farma`}
+	description={`Farmácia ${unit.name} da Dutra Farma localizada em ${unit.city}. Endereço: ${unit.address}. Peça também pelo WhatsApp.`}
+>
+	<Header />
 
-  <main class="flex-grow bg-slate-100/50 pt-10 pb-24">
-    <div class="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
-      
-      <a href="/lojas" class="inline-flex items-center gap-2 text-sm font-semibold text-slate-500 hover:text-slate-900 mb-8 transition-colors">
-        <IconArrowLeft class="w-4 h-4" />
-        Voltar para todas as unidades
-      </a>
+	<main class="grow bg-slate-100/50 pt-10 pb-24">
+		<div class="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
+			<a
+				href="/lojas"
+				class="inline-flex items-center gap-2 text-sm font-semibold text-slate-500 hover:text-slate-900 mb-8 transition-colors"
+			>
+				<IconArrowLeft class="w-4 h-4" />
+				Voltar para todas as unidades
+			</a>
 
-      <article class="bg-white rounded-[2.5rem] pt-8 sm:pt-12 shadow-2xl shadow-slate-200/50 ring-1 ring-slate-200 relative overflow-hidden flex flex-col">
-        
-        <!-- Decorative bg -->
-        <div class="absolute -top-32 -right-32 w-96 h-96 bg-red-50 rounded-full blur-3xl opacity-50 pointer-events-none"></div>
+			<article
+				class="bg-white rounded-[2.5rem] pt-8 sm:pt-12 shadow-2xl shadow-slate-200/50 ring-1 ring-slate-200 relative overflow-hidden flex flex-col"
+			>
+				<div
+					class="absolute -top-32 -right-32 w-96 h-96 bg-red-50 rounded-full blur-3xl opacity-50 pointer-events-none"
+				>
+				</div>
 
-        <div class="relative z-10 px-8 sm:px-12 pb-12">
-        <div class="absolute -top-32 -right-32 w-96 h-96 bg-red-50 rounded-full blur-3xl opacity-50 pointer-events-none"></div>
+				<div class="relative z-10 px-8 sm:px-12 pb-12">
+					<div
+						class="absolute -top-32 -right-32 w-96 h-96 bg-red-50 rounded-full blur-3xl opacity-50 pointer-events-none"
+					>
+					</div>
 
-        <div class="relative z-10">
-          <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-red-100 text-red-700 text-sm font-bold mb-6">
-            <span class="relative flex h-2 w-2">
-              <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span>
-              <span class="relative inline-flex rounded-full h-2 w-2 bg-red-500"></span>
-            </span>
-            Loja Física
-          </div>
+					<div class="relative z-10">
+						<div>
+							<h1
+								class="text-4xl sm:text-5xl font-extrabold tracking-tight text-slate-900 mb-2"
+							>
+								{unit.name}
+							</h1>
+							<p class="text-xl text-slate-500 font-medium mb-10">
+								{unit.city}, {unit.state}
+							</p>
+						</div>
 
-          <h1 class="text-4xl sm:text-5xl font-extrabold tracking-tight text-slate-900 mb-2">{unit.name}</h1>
-          <p class="text-xl text-slate-500 font-medium mb-10">{unit.city}, {unit.state}</p>
+						<StoreDetails unit={unit} />
+					</div>
+				</div>
 
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
-            
-            <!-- Left Info -->
-            <div class="space-y-8">
-              <div>
-                <h3 class="text-sm font-bold uppercase tracking-wider text-slate-400 mb-4">Endereço</h3>
-                <div class="flex items-start gap-4 p-4 rounded-2xl bg-slate-50 border border-slate-100">
-                  <IconMapPin class="w-6 h-6 text-red-500 flex-shrink-0 mt-0.5" />
-                  <div>
-                    <span class="text-slate-800 font-medium block">{unit.address}</span>
-                    <span class="text-slate-500 block mt-1">{unit.neighborhood}</span>
-                    <a href={unit.maps_url || `https://www.google.com/maps/dir/?api=1&destination=${unit.coordinates[0]},${unit.coordinates[1]}`} target="_blank" rel="noopener noreferrer" class="inline-block mt-3 text-sm font-bold text-red-600 hover:text-red-700 underline decoration-slate-300 underline-offset-4">
-                      Como chegar no mapa
-                    </a>
-                  </div>
-                </div>
-              </div>
+				<div class="w-full rounded-b-[2.5rem] mt-4 overflow-hidden">
+					<StoreMap unit={unit} />
+				</div>
+			</article>
+		</div>
+	</main>
 
-              <div>
-                <h3 class="text-sm font-bold uppercase tracking-wider text-slate-400 mb-4">Contato</h3>
-                <div class="space-y-3">
-                  {unit.phone && (
-                    <div class="flex items-center gap-4 text-slate-700">
-                      <IconPhone class="w-5 h-5 text-slate-400" />
-                      <span class="font-medium text-lg">{unit.phone}</span>
-                    </div>
-                  )}
-                  {unit.whatsapp && (
-                    <div class="flex items-center gap-4 text-slate-700">
-                      <IconWhatsapp class="w-5 h-5 text-[#25D366]" />
-                      <span class="font-medium text-lg">
-                        {unit.whatsapp.replace(/^55/, '').replace(/(\d{2})(\d{4,5})(\d{4})/, '($1) $2-$3')}
-                      </span>
-                    </div>
-                  )}
-                </div>
-              </div>
-            </div>
-
-            <!-- Right Info / CTA -->
-            <div class="flex flex-col">
-              
-              <div class="bg-slate-900 rounded-3xl p-8 text-center sm:text-left flex-grow flex flex-col justify-center items-center sm:items-start text-white shadow-lg">
-                <h3 class="text-2xl font-bold mb-2">Peça sem sair de casa</h3>
-                <p class="text-slate-400 text-sm mb-8 leading-relaxed">
-                  Evite filas! Envie sua receita ou compre seus medicamentos diretamente pelo WhatsApp da nossa farmácia.
-                </p>
-                {unit.whatsapp ? (
-                  <a href={`https://wa.me/${unit.whatsapp}`} target="_blank" rel="noopener noreferrer" class="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 rounded-2xl bg-[#25D366] px-8 py-4 text-base font-bold text-white shadow-xl shadow-[#25D366]/20 hover:bg-[#20bd5a] hover:scale-[1.02] transition-all active:scale-95">
-                    <IconWhatsapp class="w-6 h-6" />
-                    Chamar no WhatsApp
-                  </a>
-                ) : (
-                  <a href={`tel:${unit.phone}`} class="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 rounded-2xl bg-white/10 px-8 py-4 text-base font-bold text-white hover:bg-white/20 transition-all">
-                    Ligar para a loja
-                  </a>
-                )}
-              </div>
-            </div>
-
-          </div>
-        </div>
-
-        <div class="w-full h-80 z-10 bg-slate-100 store-map" id="store-map" data-lat={unit.coordinates[0]} data-lng={unit.coordinates[1]} data-name={unit.name}>
-          <div class="w-full h-full flex items-center justify-center animate-pulse text-slate-400 text-sm font-medium">Carregando mapa...</div>
-        </div>
-
-      </article>
-
-    </div>
-  </main>
-
-  <script>
-    import L from 'leaflet'
-    import 'leaflet/dist/leaflet.css'
-
-    const initStoreMap = () => {
-      const mapElement = document.getElementById('store-map')
-      if (!mapElement || mapElement.dataset.initialized) return
-      
-      mapElement.dataset.initialized = 'true'
-      
-      const lat = parseFloat(mapElement.dataset.lat || '0')
-      const lng = parseFloat(mapElement.dataset.lng || '0')
-      
-      const map = L.map('store-map', { attributionControl: false }).setView([lat, lng], 15)
-      
-      L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', {
-        attribution: '&copy; OpenStreetMap &copy; CARTO',
-        subdomains: 'abcd',
-        maxZoom: 19
-      }).addTo(map)
-      
-      const customIcon = L.divIcon({
-        className: 'custom-div-icon',
-        html: `
-          <div style="background-color: #dc2626; width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1); border: 2px solid white;">
-            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24"><path fill="white" d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5a2.5 2.5 0 0 1 0-5 2.5 2.5 0 0 1 0 5z"/></svg>
-          </div>
-        `,
-        iconSize: [32, 32],
-        iconAnchor: [16, 32]
-      })
-
-      L.marker([lat, lng], { icon: customIcon }).addTo(map)
-    }
-
-    // Call normally
-    initStoreMap()
-    // Listen to Astro transitions if they are later added
-    document.addEventListener('astro:page-load', initStoreMap)
-  </script>
-
-  <style is:global>
-    #store-map {
-      background: #f1f5f9;
-      font-family: inherit;
-    }
-  </style>
-
-  <Footer />
+	<Footer />
 </Layout>

@@ -1,34 +1,41 @@
 import L from 'leaflet'
-import { units } from '@/data/units'
+import type { Unit } from '../types'
+import { units } from '../data/units'
 
 export const initMap = () => {
-  const mapElement = document.getElementById('hero-map')
-  if (!mapElement) return
+	const mapElement = document.getElementById('hero-map')
+	if (!mapElement) return
 
-  const map = L.map('hero-map', { attributionControl: false }).setView([-23.665, -45.418], 12)
+	const map = L.map('hero-map', {
+		attributionControl: false,
+		scrollWheelZoom: false,
+	}).setView([-23.665, -45.418], 12)
 
-  L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', {
-    attribution: '&copy; OpenStreetMap &copy; CARTO',
-    subdomains: 'abcd',
-    maxZoom: 19
-  }).addTo(map)
+	L.tileLayer(
+		'https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png',
+		{
+			attribution: '&copy; OpenStreetMap &copy; CARTO',
+			subdomains: 'abcd',
+			maxZoom: 19,
+		},
+	).addTo(map)
 
-  const customIcon = L.divIcon({
-    className: 'custom-div-icon',
-    html: `
+	const customIcon = L.divIcon({
+		className: 'custom-div-icon',
+		html: `
       <div style="background-color: #dc2626; width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1); border: 2px solid white;">
         <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24"><path fill="white" d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5a2.5 2.5 0 0 1 0-5 2.5 2.5 0 0 1 0 5z"/></svg>
       </div>
     `,
-    iconSize: [32, 32],
-    iconAnchor: [16, 32],
-    popupAnchor: [0, -32]
-  })
+		iconSize: [32, 32],
+		iconAnchor: [16, 32],
+		popupAnchor: [0, -32],
+	})
 
-  units.forEach(unit => {
-    const [lat, lng] = unit.coordinates
-    
-    const popupContent = `
+	units.forEach((unit: Unit) => {
+		const [lat, lng] = unit.coordinates
+
+		const popupContent = `
       <div class="p-1 min-w-[200px] font-sans">
         <h3 class="font-bold text-slate-900 text-sm mb-1">${unit.name}</h3>
         <p class="text-xs text-slate-600 mb-2 leading-tight">${unit.address} - ${unit.city}</p>
@@ -47,13 +54,13 @@ export const initMap = () => {
       </div>
     `
 
-    L.marker([lat, lng], { icon: customIcon })
-      .addTo(map)
-      .bindPopup(popupContent, {
-        closeButton: false,
-        className: 'custom-popup font-sans'
-      })
-  })
+		L.marker([lat, lng], { icon: customIcon })
+			.addTo(map)
+			.bindPopup(popupContent, {
+				closeButton: false,
+				className: 'custom-popup font-sans',
+			})
+	})
 }
 
 initMap()
