@@ -1,10 +1,30 @@
-import L from 'leaflet'
 import type { Unit } from '../types'
 import { units } from '../data/units'
 
-export const initMap = () => {
+// We will load Leaflet lazily to boost PageSpeed
+let isLeafletLoaded = false
+
+const loadLeafletDynamically = async () => {
+	// @ts-ignore
+	if (isLeafletLoaded) return window.L
+
+	await import('leaflet/dist/leaflet.css')
+	const leafletModule = await import('leaflet')
+	// @ts-ignore
+	window.L = leafletModule.default || leafletModule
+	isLeafletLoaded = true
+
+	// @ts-ignore
+	return window.L
+}
+
+export const initMap = async () => {
 	const mapElement = document.getElementById('hero-map')
-	if (!mapElement) return
+	if (!mapElement || mapElement.dataset.initialized === 'true') return
+
+	mapElement.dataset.initialized = 'true'
+
+	const L = await loadLeafletDynamically()
 
 	const map = L.map('hero-map', {
 		attributionControl: false,
@@ -63,4 +83,24 @@ export const initMap = () => {
 	})
 }
 
-initMap()
+export const setupHeroMapObserver = () => {
+	const mapElement = document.getElementById('hero-map')
+	if (!mapElement) return
+
+	const observer = new IntersectionObserver(
+		(entries) => {
+			entries.forEach((entry) => {
+				if (entry.isIntersecting) {
+					initMap()
+					observer.disconnect()
+				}
+			})
+		},
+		{ rootMargin: '200px' },
+	)
+
+	observer.observe(mapElement)
+}
+
+setupHeroMapObserver()
+document.addEventListener('astro:page-load', setupHeroMapObserver)

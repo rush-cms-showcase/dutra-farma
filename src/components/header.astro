@@ -1,5 +1,7 @@
 ---
 import IconMenu from '~icons/ph/list-bold'
+import { Image } from 'astro:assets'
+import logoImage from '@/assets/dutra-farma.png'
 ---
 
 <header
@@ -13,10 +15,14 @@ import IconMenu from '~icons/ph/list-bold'
 					class="flex items-center gap-2"
 					aria-label="Ir para a página inicial"
 				>
-					<img
-						src="/dutra-farma.png"
+					<Image
+						src={logoImage}
 						alt="Dutra Farma Logo"
 						class="h-10 w-auto md:h-12"
+						width={214}
+						height={48}
+						fetchpriority="high"
+						loading="eager"
 					/>
 				</a>
 			</div>

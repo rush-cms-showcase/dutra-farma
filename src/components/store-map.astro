@@ -24,14 +24,25 @@ const { unit } = Astro.props
 </div>
 
 <script>
-	import L from 'leaflet'
-	import 'leaflet/dist/leaflet.css'
+	let isLeafletLoaded = false
 
-	const initStoreMap = () => {
-		const mapElement = document.getElementById('store-map')
+	const loadLeafletDynamically = async () => {
+		if (isLeafletLoaded) return window.L
+
+		await import('leaflet/dist/leaflet.css')
+		const leafletModule = await import('leaflet')
+		window.L = leafletModule.default || leafletModule
+		isLeafletLoaded = true
+
+		return window.L
+	}
+
+	const initStoreMap = async (mapElement: HTMLElement) => {
 		if (!mapElement || mapElement.dataset.initialized) return
 
 		mapElement.dataset.initialized = 'true'
+
+		const L = await loadLeafletDynamically()
 
 		const lat = parseFloat(mapElement.dataset.lat || '0')
 		const lng = parseFloat(mapElement.dataset.lng || '0')
@@ -62,10 +73,36 @@ const { unit } = Astro.props
 		})
 
 		L.marker([lat, lng], { icon: customIcon }).addTo(map)
+
+		const loadingIndicator = mapElement.querySelector(
+			'.animate-pulse',
+		) as HTMLElement
+		if (loadingIndicator && loadingIndicator.style) {
+			loadingIndicator.style.display = 'none'
+		}
 	}
 
-	initStoreMap()
-	document.addEventListener('astro:page-load', initStoreMap)
+	const setupObserver = () => {
+		const mapElement = document.getElementById('store-map')
+		if (!mapElement) return
+
+		const observer = new IntersectionObserver(
+			(entries) => {
+				entries.forEach((entry) => {
+					if (entry.isIntersecting) {
+						initStoreMap(mapElement)
+						observer.disconnect()
+					}
+				})
+			},
+			{ rootMargin: '200px' },
+		)
+
+		observer.observe(mapElement)
+	}
+
+	setupObserver()
+	document.addEventListener('astro:page-load', setupObserver)
 </script>
 
 <style is:global>
