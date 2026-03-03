@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://dutra-farma.sites.rushcms.com/sitemap-index.xml
+Sitemap: https://dutrafarma.com.br/sitemap-index.xml
